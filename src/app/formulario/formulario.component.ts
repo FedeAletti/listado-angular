@@ -2,10 +2,10 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
+import { LoggingService } from '../LoggingService.service';
 import { Persona } from '../persona.model';
 
 @Component({
@@ -19,6 +19,8 @@ export class FormularioComponent {
   @ViewChild('nombreInput') nombreInput: ElementRef;
   @ViewChild('apellidoInput') apellidoInput: ElementRef;
 
+  constructor(private loggingService: LoggingService) {}
+
   agregarPersona() {
     if (
       this.nombreInput.nativeElement.value.length > 0 &&
@@ -27,6 +29,9 @@ export class FormularioComponent {
       let persona1 = new Persona(
         this.nombreInput.nativeElement.value,
         this.apellidoInput.nativeElement.value
+      );
+      this.loggingService.enviarMensajeAConsola(
+        `Enviamos persona: ${persona1.nombre} ${persona1.apellido}`
       );
       this.personaCreada.emit(persona1);
     }
