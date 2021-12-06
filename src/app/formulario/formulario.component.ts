@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Persona } from '../persona.model';
 
 @Component({
@@ -9,12 +16,18 @@ import { Persona } from '../persona.model';
 export class FormularioComponent {
   @Output() personaCreada = new EventEmitter<Persona>();
 
-  agregarPersona(
-    nombreInput: HTMLInputElement,
-    apellidoInput: HTMLInputElement
-  ) {
-    if (nombreInput.value.length > 0 && apellidoInput.value.length > 0) {
-      let persona1 = new Persona(nombreInput.value, apellidoInput.value);
+  @ViewChild('nombreInput') nombreInput: ElementRef;
+  @ViewChild('apellidoInput') apellidoInput: ElementRef;
+
+  agregarPersona() {
+    if (
+      this.nombreInput.nativeElement.value.length > 0 &&
+      this.apellidoInput.nativeElement.value.length > 0
+    ) {
+      let persona1 = new Persona(
+        this.nombreInput.nativeElement.value,
+        this.apellidoInput.nativeElement.value
+      );
       this.personaCreada.emit(persona1);
     }
   }
