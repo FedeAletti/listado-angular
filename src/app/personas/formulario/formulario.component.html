@@ -21,5 +21,14 @@
       [(ngModel)]="apellidoInput"
     />
     <button type="submit" style="cursor: pointer">+</button>
+    <button
+      *ngIf="index != null"
+      type="submit"
+      class="buttonRed"
+      (click)="eliminarPersona()"
+      style="cursor: pointer"
+    >
+      -
+    </button>
   </form>
 </div>
